@@ -90,6 +90,7 @@ const loadSchedule = (function(){
         }
         
         if (object.app_shortdays[dateKey]['data'].indexOf(formatted) != -1){
+          availableDates += 1
           console.log(`${formatted} – Короткий день`.orange)
           continue
         }

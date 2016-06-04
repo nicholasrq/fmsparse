@@ -1,9 +1,10 @@
 'use strict';
 console.log('Start')
-const request = require('request'),
-      cheerio = require('cheerio'),
-      moment  = require('moment'),
-      colors  = require('colors');
+const request   = require('request'),
+      cheerio   = require('cheerio'),
+      moment    = require('moment'),
+      colors    = require('colors'),
+      notifier  = require('node-notifier');
 
 const url     = 'https://guvm.mvd.ru/services/appointment/appointment_schedule_view/?site_id=2&select=&district_id=&select=&document_id=365&select=&operation_id=165&select=';
 
@@ -25,6 +26,8 @@ const loadSchedule = (function(){
       const $       = cheerio.load(`<div>${response.body}</div>`),
             content = cheerio($('script')[1]).html().split("\n").map(row => row.trim()),
             object  = {}
+            
+      let   availableDates = 0;
       
       for(let row of content){
         let parsed = row.match(/document\.([^\s]+)([\s=]+)([^;]+);/i)
@@ -92,6 +95,11 @@ const loadSchedule = (function(){
         }
 
         console.log(`${formatted} – Время доступно для записи`.green)
+        availableDates += 1
+      }
+      
+      if(availableDates < 0){
+        notifier.notify('Есть доступные для записи даты')
       }
       resolve()
     })

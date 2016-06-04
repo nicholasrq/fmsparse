@@ -1,0 +1,21 @@
+{
+  "name": "fmsparse",
+  "version": "1.0.0",
+  "description": "FMS parse",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "fms"
+  ],
+  "author": "NS",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "colors": "^1.1.2",
+    "moment": "^2.13.0",
+    "request": "^2.72.0"
+  }
+}
